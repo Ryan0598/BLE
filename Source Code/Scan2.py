@@ -37,42 +37,41 @@ from matplotlib import style
 ###################################################################################################
 
 
-# style.use('')
-
+style.use('fivethirtyeight')
 fig = plt.figure()
-# creating a subplot
-ax1 = fig.add_subplot(1, 1, 1)
+ax1 = fig.add_subplot(1,1,1)
 
 mac_addresses = []
+mac_addresses_known = []
+time = 5
 
-###################################################################################################
-###################################################################################################
 
-class tableprint():
-	data = np.random.randn(5, 5)
-	headers = ['ID', 'MAC', 'First Seen', 'Last Seen','RSSI']
-	tp.table(data, headers)
-	#print(tableprint.header(['ID', 'MAC', 'First Seen', 'Last Seen','RSSI']))
-	
-#class table():
-	#t = PrettyTable(['ID', 'MAC', 'First Seen', 'Last Seen','RSSI'])
-   #t.add_row(['1', dev.addr , datetime.datetime.now().time()), datetime.datetime.now().time()), dev.rssi)
-   #print(t)
 
 
 
 ###################################################################################################
 ###################################################################################################
+
+def animate(i):
+	 
+    xs = []
+    ys = []
+    xs.append(time)
+    ys.append((len(mac_addresses)+1))
+    ax1.clear()
+    ax1.plot(xs, ys)
+    timme = time + 5
+
+
+
+
 ###################################################################################################
 ###################################################################################################
 
 
 # create a delegate class to receive the BLE broadcast packets
 class ScanDelegate(DefaultDelegate):
-	
-	
-	#count = 1
-	#addresses = []
+
 	
 	
     def __init__(self):
@@ -91,6 +90,7 @@ class ScanDelegate(DefaultDelegate):
         if isNewDev:
             print (len(mac_addresses)+1), (datetime.datetime.now().time()),  "----" , dev.addr, dev.rssi,   " NEW"
             mac_addresses.append(dev.addr)
+            mac_addresses_known.append(dev.addr)
             
         elif isNewData:
             print "------Received new data from", dev.addr, dev.rssi, " At " , (datetime.datetime.now().time()), "Update - " , dev.updateCount
@@ -104,10 +104,6 @@ class ScanDelegate(DefaultDelegate):
 ###################################################################################################
 
 
-
-
-
-
 # create a scanner object that sends BLE broadcast packets to the ScanDelegate
 scanner = Scanner().withDelegate(ScanDelegate())
 
@@ -116,12 +112,25 @@ scanner = Scanner().withDelegate(ScanDelegate())
 ###################################################################################################
 ###################################################################################################
 
+def main():
+	
+	while True:
+# start the scanner and keep the process running for 5 seconds per scan
+		scanTime = 5
+		print "Starting..."
+		scanner.start()
+		scanner.process(5)
+		print "Stopped.."
+		scanner.clear()
+		del mac_addresses[:]
+		scanTime = scanTime + 5
+		#ani = animation.FuncAnimation(fig, animate, interval=5000)
+		#plt.show()
 
-
-
-# start the scanner and keep the process running
-scanner.start()
-scanner.process(5)
+		
     
 ###################################################################################################
 ###################################################################################################
+
+
+main()
