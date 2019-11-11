@@ -28,22 +28,28 @@ import tableprint as tp
 import numpy as np
 from prettytable import PrettyTable
 
+
+
+from itertools import count
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation
+from matplotlib.animation import FuncAnimation
 from matplotlib import style
 
 
+
 ###################################################################################################
 ###################################################################################################
 
 
-style.use('fivethirtyeight')
-fig = plt.figure()
-ax1 = fig.add_subplot(1,1,1)
-
+scanTime = 5
 mac_addresses = []
 mac_addresses_known = []
-time = 5
+
+f= open("data.txt","w")
+f.write(" ")
+f.close()
+
+
 
 
 
@@ -51,17 +57,6 @@ time = 5
 
 ###################################################################################################
 ###################################################################################################
-
-def animate(i):
-	 
-    xs = []
-    ys = []
-    xs.append(time)
-    ys.append((len(mac_addresses)+1))
-    ax1.clear()
-    ax1.plot(xs, ys)
-    timme = time + 5
-
 
 
 
@@ -91,6 +86,7 @@ class ScanDelegate(DefaultDelegate):
             print (len(mac_addresses)+1), (datetime.datetime.now().time()),  "----" , dev.addr, dev.rssi,   " NEW"
             mac_addresses.append(dev.addr)
             mac_addresses_known.append(dev.addr)
+
             
         elif isNewData:
             print "------Received new data from", dev.addr, dev.rssi, " At " , (datetime.datetime.now().time()), "Update - " , dev.updateCount
@@ -114,18 +110,26 @@ scanner = Scanner().withDelegate(ScanDelegate())
 
 def main():
 	
+	global scanTime
+	
+	
 	while True:
 # start the scanner and keep the process running for 5 seconds per scan
-		scanTime = 5
+		
+		f= open("data.txt","a+")
 		print "Starting..."
 		scanner.start()
 		scanner.process(5)
 		print "Stopped.."
 		scanner.clear()
+		f.write(str(scanTime) + "," + (str(len(mac_addresses)+1)) + "\n")
 		del mac_addresses[:]
 		scanTime = scanTime + 5
-		#ani = animation.FuncAnimation(fig, animate, interval=5000)
-		#plt.show()
+		f.close() 
+		
+		
+
+
 
 		
     
