@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from matplotlib import style
 import time
-from matplotlib.ticker import MaxNLocator
 
 
 
@@ -10,8 +9,12 @@ from matplotlib.ticker import MaxNLocator
 fig, (ax1, ax2) = plt.subplots(2)
 
 
-#fig = plt.figure()
+fig = plt.figure()
 
+'''
+ax1 = fig.add_subplot(2,1,1)
+ax2 = fig.add_subplot(2,1,1)
+'''
 
 
 
@@ -32,13 +35,6 @@ ax2.set_ylabel('Devices Found2', fontsize=16, fontweight='bold')
 
 '''
 
-
-
-plt.title('BLE Scan2', fontsize=18, fontweight='bold')
-plt.xlabel('Scan Time (Seconds)2', fontsize=16, fontweight='bold')
-plt.ylabel('Devices Found2', fontsize=16, fontweight='bold')
-
-ax1.yaxis.set_major_locator(MaxNLocator(integer=True))
 
 
 

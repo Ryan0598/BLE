@@ -83,9 +83,9 @@ class ScanDelegate(DefaultDelegate):
     	
 
         if isNewDev:
-            print (len(mac_addresses)+1), (datetime.datetime.now().time()),  "----" , dev.addr, dev.rssi,   " NEW"
             mac_addresses.append(dev.addr)
             mac_addresses_known.append(dev.addr)
+            print (len(mac_addresses)), (datetime.datetime.now().time()),  "----" , dev.addr, dev.rssi,   " NEW"
 
             
         elif isNewData:
@@ -122,7 +122,7 @@ def main():
 		scanner.process(5)
 		print "Stopped.."
 		scanner.clear()
-		f.write(str(scanTime) + "," + (str(len(mac_addresses)+1)) + "\n")
+		f.write(str(scanTime) + "," + (str(len(mac_addresses))) + "\n")
 		del mac_addresses[:]
 		scanTime = scanTime + 5
 		f.close() 
