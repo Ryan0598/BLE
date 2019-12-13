@@ -2,7 +2,7 @@
 Bluetooth Low Energy - Device Identification
 ###########################################################
 
-This project will be able to scan for nearby bluetooth low-energy (BLE) devices within close proximity, 
+This project is able to scan for nearby bluetooth low-energy (BLE) devices within close proximity, 
 these devices will be mapped live in two forms
 
   1 - Devices in current range (Number)
@@ -11,7 +11,7 @@ these devices will be mapped live in two forms
   
 ###########################################################
 
-Uses for this software would include -
+Uses for this software include -
 
   - BLE presence detection
   - Device presence, locating unique devices
