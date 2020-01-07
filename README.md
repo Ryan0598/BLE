@@ -1,5 +1,5 @@
 # BLE
-Bluetooth Low Energy - Device Identification
+Bluetooth Low Energy - Device Identification Using Wireless Technologies
 ###########################################################
 
 This project is able to scan for nearby bluetooth low-energy (BLE) devices within close proximity, 
