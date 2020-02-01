@@ -16,20 +16,25 @@
 # sudo apt install python-tk
 # sudo pip install pybluez
 # sudo pip install ptable
-#sudo pip install art
+# sudo pip install art
+# sudo pip install pandas
 
 
-#relevant imports
+# relevant imports
 import datetime
 import bluetooth
 import random
 import os
+from datetime import datetime
 from bluetooth.ble import DiscoveryService
 from gattlib import DiscoveryService
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from matplotlib import style
 import time
+import csv
+import pandas
+import json
 from matplotlib.ticker import MaxNLocator
 from matplotlib.patches import Circle
 from matplotlib.collections import PatchCollection
@@ -55,13 +60,22 @@ totaldevCount = []
 newdevCount = []
 knowndevCount = []
 time_list = []
-
 x = PrettyTable()
 art=text2art("BLE   Scanner")
 scanCount = 0
 time = 0
 scanCount = time * scanCount
 scanTime = 5
+scanRef = ''
+os.system('cls||clear')
+print(art)
+
+print('\n Welcome to BLE Scanner, Enter a scan reference below in order to start the scan. \n Data will be diplayed here in a graphical format, simply press the "save" button on the graph in order to save a copy (Image). \n Mac Data will be saved in the form of a text file and will be named with relation to the scan reference.')
+scanRef = raw_input("\n Scan Reference : ")
+
+
+s = open(str(scanRef) + "_ScanData.txt" , "w+")
+s.write ("Bluetooth Low Energy Scan, Reference : " + str(scanRef) + " - Date And Time of Scan Start : " + str(datetime.now())) 
 
 
 #########################################################################
@@ -122,6 +136,8 @@ def lescan():
 #########################################################################
 ##	plot relevant data to graph data sets - 
 	
+	s.write("\n -------------------------------------------")
+	s.write("\n\n Scan Time : " + str(time))
 	
 	for address, name in ScanDevices.items():
 		count = count + 1
@@ -129,10 +145,14 @@ def lescan():
 		scatter_time.append(time)
 		
 		
+		
+		
+		
 		if str(address) in devicesDictionary:
 			id = devicesDictionary.get(str(address))
 			scatter_devs.append(id)
 			knownCount = knownCount + 1
+			s.write ("\n " + str(id) + " : " + str(address))
 			
 
 	
@@ -143,6 +163,7 @@ def lescan():
 			colourDictionary.update ( { id : colour })
 			scatter_devs.append(id)
 			unknownCount = unknownCount + 1
+			s.write ("\n " + str(id) + " : " + str(address))
 			
 			
 	totalDevs = unknownCount + knownCount
@@ -150,6 +171,10 @@ def lescan():
 	newdevCount.append(unknownCount)
 	knowndevCount.append(knownCount)
 	devices_count.append(count)
+	
+	
+
+	
 	
 	return (time_passed , devices_count , scatter_time, scatter_devs, scatter_colour, totaldevCount, newdevCount, knowndevCount)
 		
@@ -162,6 +187,8 @@ def lescan():
 
 
 
+
+
 def animate(i):
 	
 	
@@ -170,6 +197,7 @@ def animate(i):
 	global scatter_time
 	global scatter_devs
 	global scatter_colour
+	global scanRef
 	
 
 	 # Run a LE scan
@@ -195,8 +223,14 @@ def animate(i):
     	x.add_column('Devices in Range', devices_count)
     	x.add_column('New Devices', newdevCount)
     	x.add_column('Known Devices', knowndevCount)
-    # print the table
+    	# print the table
     	print (x)
+    	
+    	
+
+    	
+    		
+
     	
 # Run the animation function and show the graph
 ani = animation.FuncAnimation(fig, animate, interval=5000)
