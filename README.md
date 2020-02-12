@@ -22,8 +22,8 @@ Uses for this software include -
 
 The software requires a number of prerequisites before it can be run, these include,
 
-  - Bluetoth 4.0+ hardware
-  - Python
+  - Bluetoth 4.0+ hardware (built in or bluetooth 4.0+ dongle)
+  - Python, linux terminal
   - A number of software libraries (See Below)
 
 ###########################################################
@@ -33,3 +33,9 @@ Python dependancies -
 	- sudo apt-get install libbluetooth-dev pkg-config libboost-python-dev libboost-thread-dev libbluetooth-dev libglib2.0-dev python-dev
 
 	- sudo pip install gattlib matplotlib python-tk pybluez
+	
+	
+	
+	
+	
+
