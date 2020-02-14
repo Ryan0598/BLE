@@ -25,6 +25,7 @@ import datetime
 import bluetooth
 import random
 import os
+import tkMessageBox
 from datetime import datetime
 from bluetooth.ble import DiscoveryService
 from gattlib import DiscoveryService
@@ -73,7 +74,15 @@ print(art)
 print('\n Welcome to BLE Scanner, Enter a scan reference below in order to start the scan. \n Data will be diplayed here in a graphical format, simply press the "save" button on the graph in order to save a copy (Image). \n Mac Data will be saved in the form of a text file and will be named with relation to the scan reference.')
 scanRef = raw_input("\n Scan Reference : ")
 
+blackListDict = {}
+with open ("BLACKLIST.txt") as f:
+	for line in f:
+		(key, val) = line.split()
+		blackListDict [str(key)] = val
+		
 
+
+#create a file to store the scan data to, write the reference and time into the file
 s = open(str(scanRef) + "_ScanData.txt" , "w+")
 s.write ("Bluetooth Low Energy Scan, Reference : " + str(scanRef) + " - Date And Time of Scan Start : " + str(datetime.now())) 
 
@@ -123,7 +132,7 @@ def lescan():
 	global time_list
 
 
-	service = DiscoveryService("hci0")
+	service = DiscoveryService("hci1")
 	ScanDevices = service.discover(scanTime)
 	count = 0
 	knownCount = 0
@@ -144,10 +153,13 @@ def lescan():
 		addresses.append(format(address))
 		scatter_time.append(time)
 		
-		
-		
-		
-		
+		#if the device is in blacklist, then alert the user
+		for key in blackListDict:
+			if key == str(address):
+				tkMessageBox.showinfo(title="Device In Range!", message="Device found, \n\n" + str (blackListDict[str(address)]) + "\n\n " + str (address))
+				
+
+		#if the address is in devices dictionary, gat its ID and plot it
 		if str(address) in devicesDictionary:
 			id = devicesDictionary.get(str(address))
 			scatter_devs.append(id)
@@ -155,7 +167,7 @@ def lescan():
 			s.write ("\n " + str(id) + " : " + str(address))
 			
 
-	
+		# if the device is new, 
 		else:
 			id = (len(devicesDictionary) + 1)
 			devicesDictionary.update( { str(address) : id } )
@@ -171,6 +183,7 @@ def lescan():
 	newdevCount.append(unknownCount)
 	knowndevCount.append(knownCount)
 	devices_count.append(count)
+	
 	
 	
 
