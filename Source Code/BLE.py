@@ -22,12 +22,12 @@
 
 # relevant imports
 import datetime
-import bluetooth
+
 import random
 import os
 import tkMessageBox
 from datetime import datetime
-from bluetooth.ble import DiscoveryService
+
 from gattlib import DiscoveryService
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -132,7 +132,7 @@ def lescan():
 	global time_list
 
 
-	service = DiscoveryService("hci1")
+	service = DiscoveryService("hci0")
 	ScanDevices = service.discover(scanTime)
 	count = 0
 	knownCount = 0
