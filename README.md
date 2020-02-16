@@ -63,7 +63,7 @@ Installation Instructions
 
 	MAC_ADDRESS DESCRIPTION
 	
-just simply add as many devices as requires seperated by new lines. 
+just simply add as many devices as required seperated by new lines. 
 
 7 - Once running, the terminal window will diaplay a sumary of the scan so far, including information about how many devices have been seen so far, this screen will update every time a scan period has completed, The screen will also display a live-updating graph, showing how many devices are in range, and a device specific is in-range Chart, this can be used alongside the text file saved after the scan to reference the graph to MAC addresses.
 
