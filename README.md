@@ -45,9 +45,11 @@ Python dependancies -
 	# sudo apt-get install libglib2.0-dev
 	# sudo apt-get install python-dev
 	
-	
-Installation Instructions
+
 ############################################################
+
+Installation Instructions
+
 
 1 - Install all dependancies above onto the system
 
