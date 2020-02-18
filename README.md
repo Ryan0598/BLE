@@ -17,13 +17,12 @@ Uses for this software include -
   - Device presence, locating unique devices
   - Missing persons / pets / property
   
-  
 ###########################################################
 
 The software requires a number of prerequisites before it can be run, these include,
 
   - Bluetoth 4.0+ hardware (built in or bluetooth 4.0+ dongle)
-  - Python, linux terminal
+  - Python 2.7, linux
   - A number of software libraries (See Below)
 
 ###########################################################
@@ -61,9 +60,13 @@ Installation Instructions
 
 5 - The program will prompt for a reference, enter a reference, this will be used to name files
 
-6 - If you want to enable notifications when particular devices are in range, simply add / edit "BLACKLIST.txt" in the code directory, simply on each line, add the following 
+6 - If you want to enable notifications when particular devices are in range, simply add / edit "BLACKLIST.txt" in the code directory, simply add the following 
 
-	MAC_ADDRESS DESCRIPTION
+	MAC_ADDRESS DEVICE_NAME
+	MAC_ADDRESS DEVICE_NAME
+	MAC_ADDRESS DEVICE_NAME
+	MAC_ADDRESS DEVICE_NAME
+	....
 	
 just simply add as many devices as required seperated by new lines. 
 
